@@ -45,10 +45,12 @@
   <ItemGroup>
     <Compile Include="AVirus.cs" />
     <Compile Include="Covid201X.cs" />
+    <Compile Include="Gaussian.cs" />
     <Compile Include="IVirus.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -35,17 +35,17 @@ class Person
         UpdateImmunity();
     }
 
-    private void UpdateAge()
+    public void UpdateAge()
     {
         _age++;
         if (_age >= 29200)
-            _isAlive = true;
+            _isAlive = false;
         UpdateImmunity();
     }
 
     public void Detach() => _isAlive = false;
 
-    public void CreateTotalImmunity()
+    private void CreateTotalImmunity()
     {
         _totalImmunity = true;
     }

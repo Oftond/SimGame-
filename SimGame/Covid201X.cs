@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 class Covid201X : AVirus
 {
+    private static Random _random = new Random();
+
     public Covid201X(string code, bool reinfection, float infection, float lethality)
-        : base(code, reinfection, infection, lethality) { }
+        : base(code, reinfection, infection, lethality)
+    {
+        _lethality = lethality + (float)_random.Next(-10, 10) / 100;
+    }
 
     public override bool Death(Person person)
     {
-        Random random = new Random();
-        if (random.NextDouble() <= Lethality)
+        if (_random.NextDouble() <= Lethality)
             return true;
         return false;
     }
 
     public override void Infect(Person person)
     {
-        Random random = new Random();
-        if (random.NextDouble() + person.Immunity <= Infection)
-        {
+        if (person.Immunity <= Infection)
             person.Status = true;
-        }
     }
 }

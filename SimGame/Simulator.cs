@@ -32,12 +32,20 @@ internal class Simulator
         for (int i = 0; i < _maxDay; i++)
         {
             _day = i;
-            foreach (Person person in _alive)
-            {
-                person.UpdateAge();
-            }
+
+            //_alive.ForEach(p =>
+            //{
+            //    p.UpdateAge();
+            //    if (p.Age >= 29200)
+            //    {
+            //        _alive.Remove(p);
+            //        _dead.Add(p);
+            //    }
+            //});
+
             _alive.RemoveAll(p =>
             {
+                p.UpdateAge();
                 if (p.Age >= 29200)
                 {
                     _dead.Add(p);
@@ -45,8 +53,26 @@ internal class Simulator
                 }
                 return false;
             });
-            _alive.RemoveRange(0, (int)_mortaliity);
-            //Сделать смертность и рождаемость
+
+            for (int k = 0; k < (int)Math.Round(_alive.Count * _mortaliity); k++)
+            {
+                if (_alive.Count >= (int)Math.Round(_alive.Count * _mortaliity))
+                {
+                    _alive.Add(_alive[k]);
+                    _alive.RemoveAt(k);
+                }
+            }
+
+            for (int j = 0; j < (int)Math.Round(_alive.Count * _birthrate); j++)
+            {
+                Person person = new Person(random.Next(0, 2) == 0 ? "Ж" : "М", random.Next(0, 29201), 
+                    (float)random.Next(70, 76) / 100);
+                if (person.Age >= 29200)
+                    _dead.Add(person);
+                else
+                    _alive.Add(person);
+                person = null;
+            }
         }
     }
 

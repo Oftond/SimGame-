@@ -16,6 +16,7 @@ class Person
     private bool _isAlive;
 
     public int Age => _age;
+    public int MaxAge => 80;
     public string Gender => _gender;
     public float Immunity => _immunity;
     public bool TotalImmunity => _totalImmunity;
@@ -38,22 +39,19 @@ class Person
     public void UpdateAge()
     {
         _age++;
-        if (_age >= 29200)
-            _isAlive = false;
+        if (_age >= MaxAge)
+            Detach();
         UpdateImmunity();
     }
 
     public void Detach() => _isAlive = false;
 
-    private void CreateTotalImmunity()
-    {
-        _totalImmunity = true;
-    }
+    private void CreateTotalImmunity() => _totalImmunity = true;
 
     private void UpdateImmunity()
     {
         if (!IsAlive)
             return;
-        _immunity = _initialImmunity - _coefLostImmunity * _age;
+        _immunity = _initialImmunity - _coefLostImmunity * _age * 365;
     }
 }

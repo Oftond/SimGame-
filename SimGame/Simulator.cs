@@ -43,16 +43,8 @@ class Simulator
             //    }
             //});
 
-            _alive.RemoveAll((p) =>
-            {
-                p.UpdateAge();
-                if (p.Age >= 29200)
-                {
-                    _dead.Add(p);
-                    return true;
-                }
-                return false;
-            });
+            _alive.RemoveAll((p) => UpdatePop(p));
+            Console.WriteLine(i);
 
             //for (int k = 0; k < (int)Math.Round(_alive.Count * _mortaliity); k++)
             //{
@@ -84,5 +76,16 @@ class Simulator
             else
                 _alive.Add(person);
         }
+    }
+
+    private bool UpdatePop(Person p)
+    {
+        p.UpdateAge();
+        if (p.Age >= 29200)
+        {
+            _dead.Add(p);
+            return true;
+        }
+        return false;
     }
 }

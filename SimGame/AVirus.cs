@@ -27,6 +27,8 @@ abstract class AVirus : IVirus
 
     public float Lethality => _lethality;
 
+    public abstract int AgeToInfect {  get; }
+
     public abstract bool Death(Person person);
 
     public abstract void Infect(Person person);

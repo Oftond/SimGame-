@@ -14,6 +14,8 @@ class Covid201X : AVirus
         _lethality = lethality + (float)_random.Next(-10, 10) / 100;
     }
 
+    public override int AgeToInfect => 12;
+
     public override bool Death(Person person)
     {
         if (_random.NextDouble() <= Lethality)

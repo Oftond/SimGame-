@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal class Simulator
+class Simulator
 {
     private const double _mortaliity = (double)16 / 1000;
     private const double _birthrate = (double)8 / 1000;
@@ -43,7 +43,7 @@ internal class Simulator
             //    }
             //});
 
-            _alive.RemoveAll(p =>
+            _alive.RemoveAll((p) =>
             {
                 p.UpdateAge();
                 if (p.Age >= 29200)
@@ -54,25 +54,22 @@ internal class Simulator
                 return false;
             });
 
-            for (int k = 0; k < (int)Math.Round(_alive.Count * _mortaliity); k++)
-            {
-                if (_alive.Count >= (int)Math.Round(_alive.Count * _mortaliity))
-                {
-                    _alive.Add(_alive[k]);
-                    _alive.RemoveAt(k);
-                }
-            }
+            //for (int k = 0; k < (int)Math.Round(_alive.Count * _mortaliity); k++)
+            //{
+            //    if (_alive.Count >= (int)Math.Round(_alive.Count * _mortaliity))
+            //    {
+            //        _alive.Add(_alive[k]);
+            //        _alive.RemoveAt(k);
+            //    }
+            //}
 
-            for (int j = 0; j < (int)Math.Round(_alive.Count * _birthrate); j++)
-            {
-                Person person = new Person(random.Next(0, 2) == 0 ? "Ж" : "М", random.Next(0, 29201), 
-                    (float)random.Next(70, 76) / 100);
-                if (person.Age >= 29200)
-                    _dead.Add(person);
-                else
-                    _alive.Add(person);
-                person = null;
-            }
+            //for (int j = 0; j < (int)Math.Round(_alive.Count * _birthrate); j++)
+            //{
+            //    Person person = new Person(random.Next(0, 2) == 0 ? "Ж" : "М", random.Next(0, 29201), 
+            //        (float)random.Next(70, 76) / 100);
+            //    _alive.Add(person);
+            //    person = null;
+            //}
         }
     }
 

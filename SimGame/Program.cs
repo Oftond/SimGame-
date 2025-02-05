@@ -10,7 +10,7 @@ namespace SimGame
     {
         static void Main(string[] args)
         {
-            Simulator simulator = new Simulator(1000, 10000);
+            Simulator simulator = new Simulator(1000000, 3650);
             simulator.RunSimulation();
         }
     }

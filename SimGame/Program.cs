@@ -10,7 +10,7 @@ namespace SimGame
     {
         static void Main(string[] args)
         {
-            Simulator simulator = new Simulator(10000, 1460, new Covid201X("Covid201X", false, 0.5f, 0.3f));
+            Simulator simulator = new Simulator(1000000, 1460, new Covid201X("Covid201X", false, 0.5f, 0.3f));
             simulator.RunSimulation();
         }
     }

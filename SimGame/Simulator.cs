@@ -48,11 +48,7 @@ class Simulator
                     }
                     return false;
                 });
-            //_alive.Aggregate((p, p2) =>
-            //{
-            //    p.UpdateAge();
-            //    return p2;
-            //});
+
             Mortality();
             Birth();
         }

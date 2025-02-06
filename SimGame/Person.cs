@@ -14,12 +14,14 @@ class Person
     private float _immunity;
     private bool _totalImmunity;
     private bool _isAlive;
+    private int _friends;
 
     public int Age => _age;
     public int MaxAge => 80;
     public string Gender => _gender;
     public float Immunity => _immunity;
     public bool TotalImmunity => _totalImmunity;
+    public int Friends => _friends;
     public bool IsAlive => _isAlive;
     public bool Status {  get; set; }
 
@@ -31,6 +33,7 @@ class Person
         _initialImmunity = immunity;
         _totalImmunity = false;
         _isAlive = true;
+        _friends = (int)Gaussian.RandNormal(3, 1);
 
         Status = false;
         UpdateImmunity();

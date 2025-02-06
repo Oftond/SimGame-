@@ -54,6 +54,8 @@ class Simulator
         }
     }
 
+    public int InfectedPopulation() => _alive.FindAll((p) => (p.Status)).Count;
+
     private void Mortality()
     {
         int mort = (int)Math.Round(_mortaliity * _alive.Count / 365);
@@ -76,23 +78,24 @@ class Simulator
     private void StartInfection()
     {
         int percentPeople = (int)Math.Round(_alive.Count * 0.02);
-        for (int i = 0; i < percentPeople; i++)
-        {
-            _alive.Find((p) =>
-            {
-                if (p.Age > _virus.AgeToInfect && !p.Status)
-                {
-                    p.Status = true;
-                    return true;
-                }
-                return false;
-            });
-        }
+        for (int i = 0; i < percentPeople; i++) _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Status = true;
+        _alive = _alive.OrderBy(_ => (random.Next())).ToList();
     }
 
     private void Infection()
     {
+        var allInfected = _alive.FindAll((p) => p.Status);
+        foreach (Person p in allInfected)
+        {
+            for (int i = 0; i < Math.Round(p.Friends * 0.5); i++)
+            {
+                Person meeting = _alive[random.Next(0, _alive.Count)];
+                if (!meeting.Status)
+                {
 
+                }
+            }
+        }
     }
 
     private void Population(int countPopulation)

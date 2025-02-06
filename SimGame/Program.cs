@@ -12,6 +12,7 @@ namespace SimGame
         {
             Simulator simulator = new Simulator(1000000, 1460, new Covid201X("Covid201X", false, 0.5f, 0.3f));
             simulator.RunSimulation();
+            Console.WriteLine(simulator.InfectedPopulation());
         }
     }
 }

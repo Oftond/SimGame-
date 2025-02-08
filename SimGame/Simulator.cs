@@ -33,10 +33,38 @@ class Simulator
 
     public void RunSimulation()
     {
+        //Console.WriteLine(_alive.Count);
+        //Console.WriteLine(_dead.Count);
         StartInfection();
         for (int i = 1; i < _maxDay; i++)
         {
             _day = i;
+
+            //var ff = _alive.Select((p) =>
+            //{
+            //    p.UpdateAge();
+            //    return p;
+            //});
+            //var persons = _alive.Select((p) =>
+            //{
+            //    p.UpdateAge();
+            //    return p;
+            //});
+            //_alive = new List<Person>();
+            //persons.Where(p =>
+            //{
+            //    if (p.Age < 29200)
+            //    {
+            //        _dead.Add(p);
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        _alive.Add(p);
+            //        return false;
+            //    }
+            //});
+
             if (i % 365 == 0)
                 _alive.RemoveAll((p) =>
                 {

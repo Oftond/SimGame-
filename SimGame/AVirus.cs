@@ -29,6 +29,8 @@ abstract class AVirus : IVirus
 
     public abstract int AgeToInfect {  get; }
 
+    public abstract int DayToRecover {  get; }
+
     public abstract bool Death(Person person);
 
     public abstract void Infect(Person person);

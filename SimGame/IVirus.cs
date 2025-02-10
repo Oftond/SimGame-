@@ -10,6 +10,8 @@ interface IVirus
     float Infection {  get; }
     bool Reinfection { get; }
     float Lethality { get; }
+    int AgeToInfect { get; }
+    int DayToRecover { get; }
 
     void Infect(Person person);
     bool Death(Person person);

@@ -50,6 +50,7 @@ class Simulator
                     return false;
                 });
 
+            Infection();
             Mortality();
             Birth();
         }
@@ -88,13 +89,17 @@ class Simulator
         var allInfected = _alive.FindAll((p) => p.Status);
         foreach (Person p in allInfected)
         {
-            for (int i = 0; i < Math.Round(p.Friends * 0.5); i++)
+            if (p.UpdateInfection() == 0)
+            {
+                if (!_virus.Reinfection)
+                    p.CreateTotalImmunity();
+                continue;
+            }
+            if (random.Next(101) <= 28) continue;
+            for (int i = 0; i < p.Friends / 2; i++)
             {
                 Person meeting = _alive[random.Next(0, _alive.Count)];
-                if (!meeting.Status)
-                {
-
-                }
+                if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity) if (!meeting.Status) _virus.Infect(meeting);
             }
         }
     }

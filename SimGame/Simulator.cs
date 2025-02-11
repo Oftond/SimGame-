@@ -18,8 +18,16 @@ class Simulator
     private int _maxDay;
     private int _day;
     private AVirus _virus;
+    private int _illed;
+    private int _recovered;
 
+    public int FallIll => _illed;
+    public int Recovered => _recovered;
+    public int MaxDays => _maxDay;
     public int Days => _day;
+    public int CountDead => _dead.Count;
+    public int CountAlivePerson => _alive.Count;
+    public int InfectedPopulation => _alive.FindAll((p) => p.Status).Count;
 
     public Simulator(int countPopulation, int maxDays, AVirus virus)
     {
@@ -56,8 +64,6 @@ class Simulator
         }
     }
 
-    public int InfectedPopulation() => _alive.FindAll((p) => (p.Status)).Count;
-
     private void Mortality()
     {
         int mort = (int)Math.Round(_mortaliity * _alive.Count / 365);
@@ -93,13 +99,21 @@ class Simulator
             {
                 if (!_virus.Reinfection)
                     p.CreateTotalImmunity();
+                _recovered++;
                 continue;
             }
             if (random.Next(101) <= 28) continue;
             for (int i = 0; i < p.Friends / 2; i++)
             {
                 Person meeting = _alive[random.Next(0, _alive.Count)];
-                if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity) if (!meeting.Status) _virus.Infect(meeting);
+                if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity)
+                {
+                    if (!meeting.Status)
+                    {
+                        _illed++;
+                        _virus.Infect(meeting);
+                    }
+                }
             }
         }
     }

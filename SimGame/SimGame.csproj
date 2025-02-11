@@ -47,6 +47,7 @@
     <Compile Include="Covid201X.cs" />
     <Compile Include="Gaussian.cs" />
     <Compile Include="IVirus.cs" />
+    <Compile Include="Observer.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

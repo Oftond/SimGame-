@@ -28,7 +28,7 @@ class Observer
 
     private void EarlyExit(Thread t)
     {
-        while (true)
+        while (t.IsAlive)
         {
             if (Console.ReadKey().Key == ConsoleKey.Enter && t.IsAlive)
                 t.Abort();

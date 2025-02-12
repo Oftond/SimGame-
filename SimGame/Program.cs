@@ -12,7 +12,7 @@ namespace SimGame
     {
         private static int CountPersons;
         private static int MaxDays;
-        private static Action<Simulator> ShowInfo = (Simulator simulator) =>
+        private static Action<Simulator> ShowInfo = (simulator) =>
         {
             Console.WriteLine($"Погибло: {simulator.CountDead}\nПопуляция: {simulator.CountAlivePerson}\nЗаболевших: {simulator.FallIll}\nВыздоровевших: {simulator.Recovered}");
             if (simulator.Days < simulator.MaxDays)
@@ -31,7 +31,6 @@ namespace SimGame
         {
             inputDate();
             Simulator simulator = new Simulator(CountPersons, MaxDays, new Covid201X("Covid201X", false, 0.5f, 0.3f));
-            simulator.RunSimulation();
             Observer observer = new Observer(ref simulator);
             observer.Start();
             Results(simulator);

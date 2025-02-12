@@ -33,8 +33,8 @@ class Simulator
     {
         _alive = new List<Person>();
         _dead = new List<Person>();
-        _day = 1;
         _maxDay = maxDays;
+        _day = 1;
         _virus = virus;
         Population(countPopulation);
     }
@@ -42,9 +42,18 @@ class Simulator
     public void RunSimulation()
     {
         StartInfection();
-        for (int i = 1; i < _maxDay; i++)
+        for (int i = 1; i <= _maxDay; i++)
         {
-            _day = i;
+            _day++;
+            _alive.RemoveAll((p) =>
+            {
+                if (!p.IsAlive)
+                {
+                    _dead.Add(p);
+                    return true;
+                }
+                return false;
+            });
 
             if (i % 365 == 0)
                 _alive.RemoveAll((p) =>
@@ -86,19 +95,27 @@ class Simulator
     private void StartInfection()
     {
         int percentPeople = (int)Math.Round(_alive.Count * 0.02);
-        for (int i = 0; i < percentPeople; i++) _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Status = true;
-        _alive = _alive.OrderBy(_ => (random.Next())).ToList();
+        for (int i = 0; i < percentPeople; i++)
+        {
+            _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Infect();
+            _illed++;
+        }
+        _alive = _alive.OrderBy(_ => random.Next()).ToList();
     }
 
     private void Infection()
     {
         var allInfected = _alive.FindAll((p) => p.Status);
+
         foreach (Person p in allInfected)
         {
-            if (p.UpdateInfection() == 0)
+            if (_virus.Death(p)) continue;
+
+            if (p.UpdateInfection() == _virus.DayToRecover)
             {
                 if (!_virus.Reinfection)
                     p.CreateTotalImmunity();
+                p.Recover();
                 _recovered++;
                 continue;
             }
@@ -108,11 +125,8 @@ class Simulator
                 Person meeting = _alive[random.Next(0, _alive.Count)];
                 if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity)
                 {
-                    if (!meeting.Status)
-                    {
-                        _illed++;
-                        _virus.Infect(meeting);
-                    }
+                    _illed++;
+                    _virus.Infect(meeting);
                 }
             }
         }

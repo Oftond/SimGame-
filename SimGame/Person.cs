@@ -15,8 +15,9 @@ class Person
     private bool _totalImmunity;
     private bool _isAlive;
     private int _friends;
-    private int _infectionDays
-        ;
+    private int _infectionDays;
+    private bool _status;
+
     public int Age => _age;
     public int MaxAge => 80;
     public string Gender => _gender;
@@ -24,7 +25,7 @@ class Person
     public bool TotalImmunity => _totalImmunity;
     public int Friends => _friends;
     public bool IsAlive => _isAlive;
-    public bool Status {  get; set; }
+    public bool Status => _status;
 
     public Person(string gender, int age, float immunity)
     {
@@ -37,13 +38,12 @@ class Person
         _friends = (int)Gaussian.RandNormal(3, 1);
         _infectionDays = 0;
 
-        Status = false;
+        _status = false;
         UpdateImmunity();
     }
 
     public int UpdateInfection()
     {
-        //return !Status ? _infectionDays = 0 : _infectionDays++;
         if (!Status) _infectionDays = 0;
         else _infectionDays++;
         return _infectionDays;
@@ -53,11 +53,15 @@ class Person
     {
         _age++;
         if (_age >= MaxAge)
-            Detach();
+            Death();
         UpdateImmunity();
     }
 
-    public void Detach() => _isAlive = false;
+    public void Death() => _isAlive = false;
+
+    public void Infect() => _status = true;
+
+    public void Recover() => _status = false;
 
     public void CreateTotalImmunity() => _totalImmunity = true;
 

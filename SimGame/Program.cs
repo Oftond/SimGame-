@@ -10,6 +10,7 @@ namespace SimGame
 {
     internal class Program
     {
+        public static AVirus HirosumaVirus => new Hiroshima("Hiroshima", false, 0.75f, 0.7f);
         private static int CountPersons;
         private static int MaxDays;
         private static Action<Simulator> ShowInfo = (simulator) =>
@@ -30,7 +31,7 @@ namespace SimGame
         static void Main(string[] args)
         {
             inputDate();
-            Simulator simulator = new Simulator(CountPersons, MaxDays, new Covid201X("Covid201X", false, 0.5f, 0.3f));
+            Simulator simulator = new Simulator(CountPersons, MaxDays, HirosumaVirus);
             Observer observer = new Observer(ref simulator);
             observer.Start();
             Results(simulator);

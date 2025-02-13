@@ -46,6 +46,7 @@
     <Compile Include="AVirus.cs" />
     <Compile Include="Covid201X.cs" />
     <Compile Include="Gaussian.cs" />
+    <Compile Include="Hiroshima.cs" />
     <Compile Include="IVirus.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="Person.cs" />
